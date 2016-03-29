@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Paystack extension for Joomla Icebooking Reservation System (http://icejoomla.com)
  *
@@ -13,7 +13,9 @@
  */
 
 error_reporting(E_ALL);
-defined( '_JEXEC' ) or die( 'Restricted access' ); 
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport('joomla.filesystem.file');
 //create folder at administrator/components/com_icebooking/gateways/paystack
 $path = JPATH_BASE.DS.'components'.DS.'com_icebooking'.DS;
@@ -23,13 +25,13 @@ if(!is_dir($path.'gateways'.DS.'paystack')) mkdir($path.'gateways'.DS.'paystack'
 //copy files
 if(!copy($src.'paystack.php',$path.'gateways'.DS.'paystack'.DS.'paystack.php')) echo 'Unable to copy file<br />';
 if(!copy($src.'paystack.cfg.php',$path.'gateways'.DS.'paystack'.DS.'paystack.cfg.php')) echo 'Unable to copy file<br />';
-
 chmod($path.'models'.DS.'gateway.php', 0755);
 $config = file_get_contents($path.'models'.DS.'gateway.php');
 if(strpos($config,"gateways['paystack']") === false) {
-  $config = str_ireplace("\$gateways['paypal']","\$gateways['paystack'] = 'paystack'; \n\$gateways['paypal']",$config); 
+  $config = str_ireplace("\$gateways['paypal']","\$gateways['paystack'] = 'paystack'; \n\$gateways['paypal']",$config);
   file_put_contents($path.'models'.DS.'gateway.php',$config);
 }
+
 echo '<table bgcolor="#E0FFE0" width ="100%">
   <tr style="height:30px">
     <td width="50px"><img src="/images/tick.png" height="20px" width="20px"></td>
@@ -44,4 +46,3 @@ echo '<table bgcolor="#E0FFE0" width ="100%">
     <td><font size="2"><b>Thank you for choosing paystack.</b></font></td>
   </tr>
   </table>';
-

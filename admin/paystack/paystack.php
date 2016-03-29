@@ -14,10 +14,8 @@
 
 defined('_JEXEC') or die ( 'Restricted access' );
 require_once(JPATH_COMPONENT_ADMINISTRATOR.DS.'gateways/gatewayInterface.php');
-
 class IcebookingModelPaystack extends GatewayInterface
 {
-    protected $VPSProtocol = '2.23';
 
     public function __construct()
     {
@@ -37,7 +35,6 @@ class IcebookingModelPaystack extends GatewayInterface
 
         $form = '';
         $postUrl = 'https://paystack.com/pay';
-
         $data['orderDesc'] = JText::_($data['item_booked']).', '.JText::_('ARRIVAL').' '.$data['arrival'].' '.JText::_('DEPARTURE').' '.$data['departure'];
         $myref = $data['bookingID'].':::'.$this->createhash($data);
     $form .= '<form name="bookingCheckoutForm" id="bookingCheckoutForm" action="'.$postUrl.'" method="post">';
@@ -60,12 +57,11 @@ class IcebookingModelPaystack extends GatewayInterface
 
     public function getConfigurationForm()
     {
-        $configs  =& $this->_getConfigurationsArray();
+        $configs =& $this->_getConfigurationsArray();
         $iceLang = $this->getInstance('languages','icebookingModel');
         $languages = $iceLang->getFrontendLanguages();
         $firstRun = true;
         $languageClickList = $buttonTextFields = '';
-
         if(is_array($languages))
         {
             foreach($languages as $key => $value)
@@ -75,18 +71,20 @@ class IcebookingModelPaystack extends GatewayInterface
                     $languageClickList .= '| <a href="#" class="langSelected" title="'.$key.'">'.$value.'</a>'.' | ';
                     $buttonTextFields .= '<input type="text" class="'.$key.'" size="40" value="'.$configs['BUTTON_TEXT_'.$key].'" name="BUTTON_TEXT_'.$key.'" id="u_'.$key.'"/>';
                 }
+
                 else
                 {
                     $languageClickList .= '<a href="#" title="'.$key.'">'.$value.'</a>'.' | ';
                     $buttonTextFields .= '<input style="display:none;" type="text" class="'.$key.'" size="40" value="'.$configs['BUTTON_TEXT_'.$key].'" name="BUTTON_TEXT_'.$key.'" id="u_'.$key.'"/>';
                 }
+
                 $firstRun=false;
             }
+
         }
 
         $form = '';
         $form .= '<div class="gatewayData">';
-
         $form .=
             '<div class="gatewayForm">
                 <label>Merchant ID</label>
@@ -94,7 +92,6 @@ class IcebookingModelPaystack extends GatewayInterface
             <input type="text" name="MERCHANT_ID" value="'.$configs['MERCHANT_ID'].'"/>
                     </div>
             </div>';
-        
         $form .=
             '<div class="gatewayForm">
                 <label>Buy Now Button Image</label>
@@ -109,40 +106,39 @@ class IcebookingModelPaystack extends GatewayInterface
     {
         $data['MERCHANT_ID'] = JRequest::getString('MERCHANT_ID',0,'post');
         $data['BUYNOW_BUTTON'] = JRequest::getString('BUYNOW_BUTTON','http://paystack.com/images/buttons/make_payment_blue.png','post');
-        
         $iceLang = $this->getInstance('languages','icebookingModel');
         $languages = $iceLang->getFrontendLanguages();
         foreach($languages as $key => $value)
         {
             $data['BUTTON_TEXT_'.$key] = JRequest::getString('BUTTON_TEXT_'.$key,'','post');
         }
+
         return $this->_writeToFile($data);
     }
 
     public function callback()
-    {  
+    {
     ob_end_clean();
     ob_end_clean();
     ob_end_clean();
     ob_end_clean();
-    
     $json = $this->URLRequest('https://paystack.com/?v_transaction_id='.$_POST['transaction_id'].'&type=json');
     //create new array to store our transaction detail
     $transaction = json_decode($json, true);
-    
     /*
     Now we have the following keys in our $transaction array
     $transaction['merchant_id'],
     $transaction['transaction_id'],
     $transaction['email'],
-    $transaction['total'], 
-    $transaction['merchant_ref'], 
+    $transaction['total'],
+    $transaction['merchant_ref'],
     $transaction['memo'],
     $transaction['status'],
     $transaction['date'],
     $transaction['referrer'],
     $transaction['method']
     */
+
         if(!$this->checkHash($transaction))
         {
             die('Unknown Transaction') ;
@@ -169,27 +165,27 @@ class IcebookingModelPaystack extends GatewayInterface
     {
     $merchant_ref = explode(':::',$transaction['merchant_ref']);
         $str = round($transaction['total']).$merchant_ref[0].$transaction['merchant_id'].dirname(__FILE__);
-    
         $sha1 = md5($str);
-  
         if ($sha1 == $merchant_ref[1]) {
             return true;
         } else {
             return false;
         }
+
     }
-     
+
   public function URLRequest($url_full) {
-  
     $url = parse_url($url_full);
     $port = (empty($url['port']))? false : true;
     if (!$port) {
       if ($url['scheme'] == 'http') { $url['port']=80; }
+
       elseif ($url['scheme'] == 'https') { $url['port']=443; }
+
     }
+
     $url['query']=empty($url['query']) ? '' : $url['query'];
     $url['path']=empty($url['path']) ? '' : $url['path'];
-    
     if(function_exists('curl_init')){
       $ch = curl_init($url_full);
       if($ch){
@@ -198,15 +194,12 @@ class IcebookingModelPaystack extends GatewayInterface
         $content = curl_exec($ch);
         curl_close($ch);
       } else $content = '';
-      
     } else if (function_exists('fsockopen')){
-      
       $url['protocol']=$url['scheme'].'://';
       $eol="\r\n";
       $h="";
       $getdata_str = "?".$url['query'];
-      
-      $headers =  "$protocol ".$url['protocol'].$url['host'].$url['path'].$getdata_str." HTTP/1.0".$eol.
+      $headers = "$protocol ".$url['protocol'].$url['host'].$url['path'].$getdata_str." HTTP/1.0".$eol.
             "Host: ".$url['host'].$eol.
             "Referer: ".$url['protocol'].$url['host'].$url['path'].$eol.$h.
             "Connection: Close".$eol.$eol;
@@ -215,20 +208,23 @@ class IcebookingModelPaystack extends GatewayInterface
         fputs($fp, $headers);
         $content = '';
         while(!feof($fp)) { $content .= fgets($fp, 128); }
+
         fclose($fp);
         //removes headers
         $pattern="/^.*\r\n\r\n/s";
         $content=preg_replace($pattern,'',$content);
       }
-    }else {  
-      
+
+    }else {
       try {
         return file_get_contents($url_full);
       } catch (Exception $g) {
         $content = "";
       }
-      
+
     }
+
     return $content;
   }//end of function URLRequest($url)
 }
+

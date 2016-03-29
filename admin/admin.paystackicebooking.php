@@ -17,15 +17,14 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 ?>
 <table style="width:500px; border:none; margin: 0px auto; text-align:center;">
   <tr>
-    <td><h1>Paystack Payment Solution for IceBooking</h1></td>
+    <td><h1>Paystack Payments for IceBooking</h1></td>
   </tr>
   <tr>
     <td><h3>Version 1</h3></td>
   </tr>
   <tr>
-    <td>Please uninstall this component. necessary files have been copied to icebooking component. Configure paystack from icebooking component.</td>
+    <td>Please uninstall this component. necessary files have been copied to icebooking component. Configure Paystack from icebooking component.</td>
   </tr>
-  
   <tr>
     <td><p>&nbsp;</p>
     <p>Get support and documentation on <a href="http://paystack.com" target="_blank">www.paystack.com</a>.<br />

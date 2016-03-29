@@ -8,62 +8,58 @@
  *
  * @category  Paystack
  * @package   Paystack_Icebooking
- * @author    Yabacon Valley <yabacon.valley@gmail.com>
+ * @author  Yabacon Valley <yabacon.valley@gmail.com>
  * @copyright 2016 Yabacon Valley. (https://github.com/yabacon/paystack-joomla-icebooking)
  * @license   MIT License (MIT)
  */
+
 -->
-<extension type="component" version="2.5">
-    <name>Paystack Icebooking</name>
-    <extensionname>Paystack Icebooking</extensionname>
-    <creationDate>July 2012 Version 1.00</creationDate>
-  <author>Afrisoft Interactive</author>
-  <authorEmail>support@paystack.com</authorEmail>
-  <authorUrl>http://paystack.com</authorUrl>
-  <copyright>(C) www.paystack.com, All rights reserved.</copyright>
-  <license>www.paystack.com</license>
+<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
+<install type="component" version="1.5.0">
+  <name>paystackicebooking</name>
+  <!-- The following elements are optional and free of formatting constraints -->
+  <creationDate>March 2016 Version 1.00</creationDate>
+  <author>Yabacon Valley</author>
+  <authorEmail>yabacon.valley@gmail.com</authorEmail>
+  <authorUrl>https://github.com/yabacon/paystack-icebooking-joomla</authorUrl>
+  <copyright>(C) Yabacon Valley, All rights reserved.</copyright>
+  <license>MIT</license>
   <!--  The version string is recorded in the components table -->
-  <version>1.00</version>
+  <version>1.0.0</version>
   <!-- The description is optional and defaults to the name -->
     <description>
-    <![CDATA[<p>Paystack Payment Integration for IceBooking
-  <br /><a href="http://paystack.com">www.paystack.com</a>
-  </p>]]></description> 
-
+  <![CDATA[<p>Paystack Payment Integration for IceBooking
+  <br /><a href="https://github.com/yabacon/paystack-icebooking-joomla">Github Page</a>
+  </p>]]></description>
   <!-- Custom Install Script to execute -->
-  <installfile>install.paystackicebooking.php</installfile>
-  
-  <!-- Custom Uninstall Script to execute --> 
-  <uninstallfile>uninstall.paystackicebooking.php</uninstallfile>
- 
-
+  <installfile>install.php</installfile>
+  <!-- Custom Uninstall Script to execute -->
+  <uninstallfile>uninstall.php</uninstallfile>
   <!-- Site Main File Copy Section-->
-  <files source="site" folder="site">
-    <file>paystackicebooking.php</file>
+  <files>
+    <filename>paystackicebooking.php</filename>
+    <folder>paystack</folder>
   </files>
-  
   <administration>
     <!-- Administration Menu Section -->
-    <menu link="com_paystackicebooking" img="components/com_spc/images/paystack.png">Paystack IceBooking</menu>
-    
+    <menu img="components/com_spc/images/paystack.png">Paystack IceBooking</menu>
     <!-- Administration Main File Copy Section -->
     <!-- Note the folder attribute: This attribute describes the folder
       to copy FROM in the package to install therefore files copied
       in this section are copied from /admin/ in the package
      -->
     <files folder="admin">
-       <file>index.html</file>
-       <file>admin.paystackicebooking.php</file>
-       <file>admin.paystackicebooking.html.php</file>
-         <file>toolbar.paystackicebooking.html.php</file>  
-         <file>toolbar.paystackicebooking.php</file>
-      <folder>images</folder>  
+      <filename>index.html</filename>
+      <filename>admin.paystackicebooking.php</filename>
+      <filename>admin.paystackicebooking.html.php</filename>
+      <filename>toolbar.paystackicebooking.html.php</filename>
+      <filename>toolbar.paystackicebooking.php</filename>
+      <folder>images</folder>
       <folder>paystack</folder>
     </files>
-    
     <!-- Administration Main Media File Copy Section -->
     <media folder="admin" destination="com_paystackicebooking/images">
-      <file>images/paystackicebooking.png</file>
+      <filename>images/paystackicebooking.png</filename>
     </media>
   </administration>
-</extension>
+</install>

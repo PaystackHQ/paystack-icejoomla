@@ -14,3 +14,4 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 class TOOLBAR_paystackicebooking {  function _DEFAULT() {} }
+

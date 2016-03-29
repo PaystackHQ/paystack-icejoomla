@@ -20,3 +20,4 @@ switch($task)
     TOOLBAR_paystackicebooking::_DEFAULT();
     break;
 }
+

@@ -13,8 +13,11 @@
  */
 
 // no direct access
-defined('_JEXEC') or die ( 'Restricted access' ); 
+defined('_JEXEC') or die ( 'Restricted access' );
 $configs = array();
-$configs["MERCHANT_ID"] = 'demo';
-$configs["BUYNOW_BUTTON"] = 'http://paystack.com/images/buttons/make_payment_blue.png';
+$configs["TEST_SECRET_KEY"] = 'sk_test_demo';
+$configs["TEST_PUBLIC_KEY"] = 'pk_test_demo';
+$configs["LIVE_SECRET_KEY"] = 'sk_live_demo';
+$configs["LIVE_PUBLIC_KEY"] = 'pk_live_demo';
+$configs["MODE"] = 'test';
 $configs["BUTTON_TEXT_en-GB"] = 'Pay now';
