@@ -71,6 +71,7 @@ class IcebookingModelPaystack extends GatewayInterface
 
         //set number of POST vars, POST data
         curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSLVERSION, 6);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
 
