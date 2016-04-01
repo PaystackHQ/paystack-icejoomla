@@ -49,7 +49,7 @@ class IcebookingModelPaystack extends GatewayInterface
         $fields = [
           'reference'     => $myref,
           'callback_url'  => $this->getCallbackUrl().
-                            ((strpos($this->getCallbackUrl(), '?')===-1) ? '?' : '&').
+                            ((strpos($this->getCallbackUrl(), '?')===false) ? '?' : '&').
                             'ref='.urlencode($myref).'&iscallback',
             'email'       => $data['email'],
             'amount'      => $data['gateway_amount'] * 100
