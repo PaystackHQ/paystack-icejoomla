@@ -49,7 +49,7 @@ class IcebookingModelPaystack extends GatewayInterface
         $fields = [
           'reference'     => $myref,
           'callback_url'  => $this->getCallbackUrl().
-                            ((strpos($this->getCallbackUrl(), '?')===-1) ? '?' . '&').
+                            ((strpos($this->getCallbackUrl(), '?')===-1) ? '?' : '&').
                             'ref='.urlencode($myref).'&iscallback',
             'email'       => $data['email'],
             'amount'      => $data['gateway_amount'] * 100
@@ -62,7 +62,7 @@ class IcebookingModelPaystack extends GatewayInterface
         $ch = curl_init();
 
         //set the url, number of POST vars, POST data
-        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.paystack.co/transaction/initialize');
 
         //set the headers
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
