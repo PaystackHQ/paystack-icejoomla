@@ -17,13 +17,12 @@
   <br /><a href="https://github.com/yabacon/paystack-icebooking-joomla">Github Page</a>
   </p>]]></description>
   <!-- Custom Install Script to execute -->
-  <installfile>install.php</installfile>
+  <installfile>install.paystackicebooking.php</installfile>
   <!-- Custom Uninstall Script to execute -->
-  <uninstallfile>uninstall.php</uninstallfile>
+  <uninstallfile>uninstall.paystackicebooking.php</uninstallfile>
   <!-- Site Main File Copy Section-->
   <files>
     <filename>paystackicebooking.php</filename>
-    <folder>paystack</folder>
   </files>
   <administration>
     <!-- Administration Menu Section -->
